@@ -70,7 +70,7 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_download_artifact()
+    public async Task it_download_artifact()
     {
       var buildConfigId = m_goodBuildConfigId;
 
@@ -80,12 +80,8 @@ namespace TeamCitySharp.IntegrationTests
       var artifact = m_client.Artifacts.ByBuildConfigId(buildConfigId);
       var file = artifact.LastSuccessful().DownloadFiltered(Path.GetTempPath(), new[] {filename}.ToList()).FirstOrDefault();
       Assert.That(file, Is.Not.Empty);
-      using (var client = new WebClient())
-      {
-        client.UseDefaultCredentials = true;
-        client.Credentials = new NetworkCredential(m_username, m_password);
-        client.DownloadFile(expectedUrl, expectedFile);
-      }
+      await DownloadFile(expectedUrl, expectedFile);
+
       Assert.That(FileEquals(expectedFile, file), Is.True);
  
       if (File.Exists(file))
@@ -99,8 +95,23 @@ namespace TeamCitySharp.IntegrationTests
       }
     }
 
+    private async Task DownloadFile(string expectedUrl, string expectedFile)
+    {
+      var client = new HttpClient();
+      var credentials = Encoding.ASCII.GetBytes($"{m_username}:{m_password}");
+      client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(credentials));
+
+      using HttpResponseMessage response = await client.GetAsync(expectedUrl, HttpCompletionOption.ResponseHeadersRead);
+      
+      response.EnsureSuccessStatusCode();
+
+      await using Stream contentStream = await response.Content.ReadAsStreamAsync();
+      await using FileStream fileStream = new FileStream(expectedFile, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+      await contentStream.CopyToAsync(fileStream);
+    }
+
     [Test]
-    public void it_download_artifact_from_a_git_branch()
+    public async Task it_download_artifact_from_a_git_branch()
     {
       var buildConfigId = m_goodBuildConfigId;
       const string filename = "Outputs.zip";
@@ -110,12 +121,8 @@ namespace TeamCitySharp.IntegrationTests
       var artifact = m_client.Artifacts.ByBuildConfigId(buildConfigId, param);
       var file = artifact.LastSuccessful().DownloadFiltered(Path.GetTempPath(), new[] { filename }.ToList()).FirstOrDefault();
       Assert.That(file, Is.Not.Empty);
-      using (var client = new WebClient())
-      {
-        client.UseDefaultCredentials = true;
-        client.Credentials = new NetworkCredential(m_username, m_password);
-        client.DownloadFile(expectedUrl, expectedFile);
-      }
+      await DownloadFile(expectedUrl, expectedFile);
+
       Assert.That(FileEquals(expectedFile, file), Is.True);
       if (File.Exists(file))
       {
