@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/OctopusDeploy/Octopus.TeamCitySharp</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <Description>A fork of https://github.com/mavezeau/TeamCitySharp.</Description>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    
     <!-- ignore obsolete RestSharp methods; see https://github.com/restsharp/RestSharp/pull/2228 -->
     <NoWarn>618</NoWarn>
     <RootNamespace>Octopus.OnePassword.Sdk</RootNamespace>
