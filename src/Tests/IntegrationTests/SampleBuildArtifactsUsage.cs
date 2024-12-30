@@ -1,8 +1,11 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Resources;
+using System.Text;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace TeamCitySharp.IntegrationTests
