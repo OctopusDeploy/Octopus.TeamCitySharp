@@ -78,7 +78,7 @@ class Build : NukeBuild
                 .SetVerbosity(DotNetVerbosity.normal)
                 .EnableNoBuild()
                 .EnableNoRestore());
-            SourceDirectory.GlobFiles("**/*.trx").ForEach(x => x.CopyToDirectory(ArtifactsDirectory));
+            SourceDirectory.GlobFiles("**/*.trx").ForEach(x => CopyFileToDirectory(x, ArtifactsDirectory));
         });
 
     Target Pack => _ => _
