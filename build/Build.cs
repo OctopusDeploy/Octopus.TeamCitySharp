@@ -33,7 +33,8 @@ class Build : NukeBuild
     [OctoVersion(UpdateBuildNumber = true, BranchMember = nameof(BranchName), AutoDetectBranchMember = nameof(AutoDetectBranch), Framework = "net8.0")]
     readonly OctoVersionInfo OctoVersionInfo = null!; //this is set by nuke
 
-    [Solution] readonly Solution Solution = null!; //this is set by nuke
+    [Solution(GenerateProjects = true)]
+    readonly Solution Solution = null!; //this is set by nuke
 
     AbsolutePath SourceDirectory => RootDirectory / "source";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
@@ -72,7 +73,8 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(_ => _
-                .SetProjectFile(Solution)
+                //currently skipping the integration tests as they require a TeamCity server to be running 
+                .SetProjectFile(Solution.Tests.TeamCitySharp_UnitTests)
                 .SetConfiguration(Configuration)
                 .SetLoggers("trx")
                 .SetVerbosity(DotNetVerbosity.normal)
