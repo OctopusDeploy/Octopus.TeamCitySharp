@@ -12,11 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="9.0.3" />
+    <PackageReference Include="Nuke.Common" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageDownload Include="OctoVersion.Tool" Version="[0.3.59]" />
-<!--    <PackageDownload Include="Octopus.OctoVersion.Tool" Version="[0.3.295]" />-->
+    <PackageDownload Include="Octopus.OctoVersion.Tool" Version="[0.3.295]" />
   </ItemGroup>
 </Project>
