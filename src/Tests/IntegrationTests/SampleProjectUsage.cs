@@ -99,7 +99,7 @@ namespace TeamCitySharp.IntegrationTests
     [Ignore("Modify guid...")]
     public void it_returns_project_details_when_creating_project()
     {
-      var client = new TeamCityClient("localhost:81");
+      var client = new TeamCityClient(m_server, m_useSsl);
       client.Connect(m_username, m_password);
       var projectName = Guid.NewGuid().ToString("N");
       var project = client.Projects.Create(projectName);
