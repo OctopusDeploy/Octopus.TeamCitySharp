@@ -128,7 +128,7 @@ namespace TeamCitySharp.IntegrationTests
         [Test]
         public void it_should_throw_exception_when_forbidden_status_code_returned()
         {
-            var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+            var client = new TeamCityClient(m_server, m_useSsl);
             client.ConnectAsGuest();
 
             Assert.Throws<HttpException>(() => client.Users.All());
