@@ -37,7 +37,7 @@ namespace TeamCitySharp.IntegrationTests
       bool.TryParse(Configuration.GetAppSetting("UseSsl"), out m_useSsl);
       m_username = Configuration.GetAppSetting("Username");
       m_password = Configuration.GetAppSetting("Password");
-      m_token = Configuration.GetAppSetting("Password");
+      m_token = Configuration.GetAppSetting("Token");
       m_goodBuildConfigId = Configuration.GetAppSetting("GoodBuildConfigId");
       m_goodProjectId = Configuration.GetAppSetting("GoodProjectId");
       m_goodTemplateId = Configuration.GetAppSetting("GoodTemplateId");
@@ -56,7 +56,7 @@ namespace TeamCitySharp.IntegrationTests
       Assert.Throws<ArgumentNullException>(() => new TeamCityClient(null));
     }
 
-    [Test, Ignore("We need to configure token before run this test")]
+    [Test]
     public void it_returns_all_build_types_with_access_token()
     {
       var client = new TeamCityClient(m_server, m_useSsl);
@@ -92,7 +92,7 @@ namespace TeamCitySharp.IntegrationTests
       Assert.That(buildConfig, Is.Not.Null, "Cannot find a build type for that buildId");
     }
 
-    [Test, Ignore("Test user doesn't have the rights to change pause status for build configs.")]
+    [Test]
     public void it_pauses_configuration()
     {
       string buildConfigId = m_goodBuildConfigId;
@@ -110,7 +110,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.ConnectAsGuest();
+        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
         client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, true);
       }
       catch (HttpException e)
@@ -119,7 +119,7 @@ namespace TeamCitySharp.IntegrationTests
       }
     }
 
-    [Test, Ignore("Test user doesn't have the rights to change pause status for build configs.")]
+    [Test]
     public void it_unpauses_configuration()
     {
       string buildConfigId = m_goodBuildConfigId;
@@ -156,7 +156,7 @@ namespace TeamCitySharp.IntegrationTests
       Assert.That(buildConfigs.Any(), "Cannot find a build type for that projectName");
     }
 
-    [Test, Ignore("Test user doesn't have the rights to access artifact dependencies of build config.")]
+    [Test]
     public void it_returns_artifact_dependencies_by_build_config_id()
     {
       string buildConfigId = m_goodBuildConfigId;
@@ -167,7 +167,7 @@ namespace TeamCitySharp.IntegrationTests
     }
 
 
-    [Test, Ignore("Test user doesn't have the rights to access artifact dependencies of build config.")]
+    [Test]
     public void it_returns_snapshot_dependencies_by_build_config_id()
     {
       string buildConfigId = m_goodBuildConfigId;
@@ -176,7 +176,7 @@ namespace TeamCitySharp.IntegrationTests
         "Cannot find a snapshot dependencies for that buildConfigId");
     }
 
-    [Test , Ignore("Test user doesn't have the rights to access artifact dependencies of build config.")]
+    [Test]
     public void it_create_build_config_step()
     {
       var bt = new BuildConfig();
@@ -210,7 +210,7 @@ namespace TeamCitySharp.IntegrationTests
       }
     }
 
-    [Test, Ignore("Test user doesn't have the rights to access artifact dependencies of build config.")]
+    [Test]
     public void it_create_build_config_steps()
     {
       var bt = new BuildConfig();
@@ -261,7 +261,7 @@ namespace TeamCitySharp.IntegrationTests
       }
     }
 
-    [Test, Ignore("Test user doesn't have the rights to access artifact dependencies of build config.")]
+    [Test]
     public void it_getraw_build_config_steps()
     {
       var bt = new BuildConfig();
@@ -320,7 +320,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.ConnectAsGuest();
+        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
         client.BuildConfigs.GetArtifactDependencies(m_goodBuildConfigId);
       }
       catch (HttpException e)
@@ -336,7 +336,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.ConnectAsGuest();
+        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
         client.BuildConfigs.GetSnapshotDependencies(m_goodBuildConfigId);
       }
       catch (HttpException e)
@@ -348,11 +348,10 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_throws_exception_create_build_config_forbidden()
     {
-
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.ConnectAsGuest();
+        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
         client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig");
       }
       catch (HttpException e)
@@ -361,7 +360,7 @@ namespace TeamCitySharp.IntegrationTests
       }
     }
 
-    [Test, Ignore("Test user doesn't have the rights to access artifact dependencies of build config.")]
+    [Test]
     public void it_modify_build_config()
     {
       const string depend = "TeamcityDashboardScenario_Test_TestWithCheckout";
@@ -619,6 +618,9 @@ namespace TeamCitySharp.IntegrationTests
       string buildConfigId = m_goodBuildConfigId;
       string directory = Directory.GetCurrentDirectory();
       string destination = Path.Combine(directory, "config.txt");
+      if (File.Exists(destination))
+        File.Delete(destination);
+      
       var buildLocator = BuildTypeLocator.WithId(buildConfigId);
       m_client.BuildConfigs.DownloadConfiguration(buildLocator, tempfile => System.IO.File.Move(tempfile, destination));
       Assert.That(System.IO.File.Exists(destination), Is.True);
