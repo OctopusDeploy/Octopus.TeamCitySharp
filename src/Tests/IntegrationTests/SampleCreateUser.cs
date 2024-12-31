@@ -44,13 +44,14 @@ namespace TeamCitySharp.IntegrationTests
 
       var createUserResult = m_client.Users.Create(userName, name, email, password);
 
-      ITeamCityClient _newUser;
-      _newUser = new TeamCityClient(m_server, m_useSsl);
-      _newUser.Connect(userName, password);
+      var newUserClient = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+      newUserClient.Connect(userName, password);
 
-      var loginResponse = _newUser.Authenticate();
+      var loginResponse = newUserClient.Authenticate();
 
       Assert.That(createUserResult && loginResponse);
+      
+      m_client.Users.Delete(userName);
     }
   }
 }
