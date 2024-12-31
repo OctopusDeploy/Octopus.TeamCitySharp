@@ -15,6 +15,7 @@ using TeamCitySharp.Connection;
 using TeamCitySharp.DomainEntities;
 using TeamCitySharp.Fields;
 using TeamCitySharp.Locators;
+using File = System.IO.File;
 
 namespace TeamCitySharp.IntegrationTests
 {

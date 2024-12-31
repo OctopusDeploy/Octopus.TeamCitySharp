@@ -118,7 +118,9 @@ namespace TeamCitySharp.IntegrationTests
         [Test]
         public void it_throws_exception_create_new_vsc_forbidden()
         {
-            var project = m_client.Projects.ById(m_goodProjectId);
+            var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+            client.Connect(m_username, m_password);
+            var project = client.Projects.ById(m_goodProjectId);
 
             VcsRoot vcsroot = new VcsRoot();
             vcsroot.Id = project.Id + "_vcsroot1_01";

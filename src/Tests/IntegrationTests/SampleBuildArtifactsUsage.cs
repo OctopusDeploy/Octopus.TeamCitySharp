@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using NUnit.Framework;
 
 namespace TeamCitySharp.IntegrationTests
