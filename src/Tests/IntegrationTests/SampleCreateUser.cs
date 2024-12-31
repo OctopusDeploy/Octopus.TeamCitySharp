@@ -44,7 +44,7 @@ namespace TeamCitySharp.IntegrationTests
 
       var createUserResult = m_client.Users.Create(userName, name, email, password);
 
-      var newUserClient = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+      var newUserClient = new TeamCityClient(m_server, m_useSsl);
       newUserClient.Connect(userName, password);
 
       var loginResponse = newUserClient.Authenticate();
