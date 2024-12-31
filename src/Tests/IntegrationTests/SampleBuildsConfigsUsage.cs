@@ -537,7 +537,7 @@ namespace TeamCitySharp.IntegrationTests
       Assert.That(buildConfig.Builds, Is.Not.Null, "No builds 2");
       Assert.That(buildConfig.Builds.Href, Is.Null, "No builds href 2");
       Assert.That(buildConfig.Investigations, Is.Not.Null, "No Investigations 2");
-      Assert.That(buildConfig.Investigations.Href, Is.Null, "No Investigations href 2");
+      Assert.That(buildConfig.Investigations.Href, Is.Not.Null, "No Investigations href 2");
       Assert.That(buildConfig.CompatibleAgents, Is.Not.Null, "No CompatibleAgents 2");
       Assert.That(buildConfig.CompatibleAgents.Href, Is.Not.Null, "No CompatibleAgents href 2");
 
