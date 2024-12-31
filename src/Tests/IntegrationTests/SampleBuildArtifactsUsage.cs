@@ -82,11 +82,11 @@ namespace TeamCitySharp.IntegrationTests
 
       const string filename = "Outputs.zip";
       var expectedFile = Path.Combine(Path.GetTempPath(), "expectedFile.zip");
+      var expectedUrl = $"http://{m_server}/repository/download/{buildConfigId}/.lastSuccessful/{filename}";
       var artifact = m_client.Artifacts.ByBuildConfigId(buildConfigId);
       var file = artifact.LastSuccessful().DownloadFiltered(Path.GetTempPath(), new[] {filename}.ToList()).FirstOrDefault();
       Assert.That(file, Is.Not.Empty);
       
-      var expectedUrl = $"http://{m_server}/repository/download/{buildConfigId}/.lastSuccessful/{filename}";
       await DownloadFile(expectedUrl, expectedFile);
 
       Assert.That(FileEquals(expectedFile, file), Is.True);
@@ -124,11 +124,11 @@ namespace TeamCitySharp.IntegrationTests
       const string filename = "Outputs.zip";
       const string param = "branch=dev-2001";
       var expectedFile = Path.Combine(Path.GetTempPath(), "expectedFile.zip");
+      var expectedUrl = $"http://{m_server}/repository/download/{buildConfigId}/.lastSuccessful/{filename}?{HttpUtility.UrlDecode(param)}";
       var artifact = m_client.Artifacts.ByBuildConfigId(buildConfigId, param);
       var file = artifact.LastSuccessful().DownloadFiltered(Path.GetTempPath(), new[] { filename }.ToList()).FirstOrDefault();
       Assert.That(file, Is.Not.Empty);
       
-      var expectedUrl = $"http://{m_server}/repository/download/{buildConfigId}/.lastSuccessful/{filename}?{HttpUtility.UrlDecode(param)}";
       await DownloadFile(expectedUrl, expectedFile);
 
       Assert.That(FileEquals(expectedFile, file), Is.True);
