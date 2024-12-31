@@ -115,6 +115,7 @@ namespace TeamCitySharp.IntegrationTests
       }
       catch (HttpException e)
       {
+        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
       }
     }
 
