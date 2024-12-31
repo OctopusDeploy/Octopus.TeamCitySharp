@@ -83,7 +83,7 @@ namespace TeamCitySharp.IntegrationTests
     public void it_get_all_agents_version_2018_1()
     {
       const string version = "2018.1";
-      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+      var client = new TeamCityClient(m_server, m_useSsl);
       client.Connect(m_username, m_password);
       client.UseVersion(version);
       var agents = client.Agents.All();
