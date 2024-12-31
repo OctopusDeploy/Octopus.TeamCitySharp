@@ -20,8 +20,6 @@ namespace TeamCitySharp.IntegrationTests
     private readonly string m_username;
     private readonly string m_password;
     private readonly string m_goodBuildConfigId;
-    private readonly string m_goodNumber;
-
 
     public when_interacting_to_get_build_status_info()
     {
