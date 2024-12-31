@@ -111,7 +111,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+        client.ConnectAsGuest();
         client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, true);
       }
       catch (HttpException e)
@@ -321,7 +321,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+        client.ConnectAsGuest();
         client.BuildConfigs.GetArtifactDependencies(m_goodBuildConfigId);
       }
       catch (HttpException e)
@@ -337,7 +337,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+        client.ConnectAsGuest();
         client.BuildConfigs.GetSnapshotDependencies(m_goodBuildConfigId);
       }
       catch (HttpException e)
@@ -352,7 +352,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         var client = new TeamCityClient(m_server, m_useSsl);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+        client.ConnectAsGuest();
         client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig");
       }
       catch (HttpException e)
