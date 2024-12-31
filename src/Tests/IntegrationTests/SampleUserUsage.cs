@@ -101,7 +101,7 @@ namespace TeamCitySharp.IntegrationTests
         [Ignore("Needs an enterprise license")]
         public void it_returns_all_user_roles_by_user_name()
         {
-            string userName = "teamcitysharpuser";
+            string userName = Configuration.GetAppSetting("NameOfUserWithRoles");
             List<Role> roles = m_client.Users.AllRolesByUserName(userName);
 
             Assert.That(roles.Any(), "No roles found for this user");
@@ -122,13 +122,13 @@ namespace TeamCitySharp.IntegrationTests
             string userName = m_username;
             User details = m_client.Users.Details(userName);
 
-            Assert.That(details.Email.ToLowerInvariant().Contains("@"), "Incorrect email address");
+            Assert.That(details.Email, Is.EqualTo(Configuration.GetAppSetting("UserEmail")), "Incorrect email address");
         }
 
         [Test]
         public void it_should_throw_exception_when_forbidden_status_code_returned()
         {
-            var client = new TeamCityClient(m_server, m_useSsl);
+            var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
             client.ConnectAsGuest();
 
             Assert.Throws<HttpException>(() => client.Users.All());
