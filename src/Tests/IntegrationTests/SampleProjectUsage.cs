@@ -96,7 +96,6 @@ namespace TeamCitySharp.IntegrationTests
 
 
     [Test]
-    [Ignore("Modify guid...")]
     public void it_returns_project_details_when_creating_project()
     {
       var client = new TeamCityClient(m_server, m_useSsl);
