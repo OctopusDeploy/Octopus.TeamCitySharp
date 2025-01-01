@@ -158,7 +158,7 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_returns_all_successful_builds_since_date()
+    public void it_returns_all_failed_builds_since_date()
     {
       var builds = m_client.Builds.AllBuildsOfStatusSinceDate(new DateTime(2024, 12, 30, 17, 25, 39), BuildStatus.FAILURE);
 
