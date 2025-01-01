@@ -242,17 +242,16 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_returns_first_build_artifacts_relatedIssues_Statistics_no_field()
-
+    public void it_returns_first_build_artifacts_relatedIssues_statistics_no_field()
     {
       var tempBuild = m_client.Builds.LastBuildByBuildConfigId(Configuration.GetAppSetting("IdOfBuildConfigWithTests"));
       var build = m_client.Builds.ById(tempBuild.Id);
 
-      Assert.That(build.Artifacts, Is.Not.Null, "No Artifacts ");
+      Assert.That(build.Artifacts, Is.Not.Null, "No Artifacts");
       Assert.That(build.Artifacts.Href, Is.Not.Null, "No Artifacts href");
-      Assert.That(build.RelatedIssues, Is.Not.Null, "No RelatedIssues ");
+      Assert.That(build.RelatedIssues, Is.Not.Null, "No RelatedIssues");
       Assert.That(build.RelatedIssues.Href, Is.Not.Null, "No RelatedIssues href");
-      Assert.That(build.Statistics, Is.Not.Null, "No Statistics ");
+      Assert.That(build.Statistics, Is.Not.Null, "No Statistics");
       Assert.That(build.Statistics.Href, Is.Not.Null, "No Statistics href");
     }
 

@@ -1,15 +1,15 @@
 {
-  "Guid": "5418f917-bfd8-45b2-882e-cf422d45f180",
-  "UpdatedAt": "2024-12-31T06:26:01.888962Z",
-  "Title": "Proxy Mapping for GET /httpAuth/app/rest/builds/id:2508",
-  "Description": "Proxy Mapping for GET /httpAuth/app/rest/builds/id:2508",
+  "Guid": "d1c55aa5-6f4b-4b31-8159-61d444cdb087",
+  "UpdatedAt": "2025-01-01T22:58:15.186795Z",
+  "Title": "Proxy Mapping for GET /httpAuth/app/rest/builds",
+  "Description": "Proxy Mapping for GET /httpAuth/app/rest/builds",
   "Priority": -2000000,
   "Request": {
     "Path": {
       "Matchers": [
         {
           "Name": "WildcardMatcher",
-          "Pattern": "/httpAuth/app/rest/builds/id:2508",
+          "Pattern": "/httpAuth/app/rest/builds",
           "IgnoreCase": false
         }
       ]
@@ -44,11 +44,11 @@
     ],
     "Params": [
       {
-        "Name": "fields",
+        "Name": "locator",
         "Matchers": [
           {
             "Name": "ExactMatcher",
-            "Pattern": "id,number",
+            "Pattern": "buildType:(id:TestingTeamCitySharp_ContinuousIntegration),status:ERROR,count:1",
             "IgnoreCase": false
           }
         ]
@@ -58,12 +58,13 @@
   "Response": {
     "StatusCode": 200,
     "BodyAsJson": {
-      "id": 2508,
-      "number": "4"
+      "count": 0,
+      "build": [],
+      "href": "/httpAuth/app/rest/builds?locator=buildType:(id:TestingTeamCitySharp_ContinuousIntegration),status:ERROR,count:1"
     },
     "Headers": {
       "Content-Type": "application/json",
-      "Content-Length": "24",
+      "Content-Length": "144",
       "X-Frame-Options": "sameorigin",
       "Strict-Transport-Security": "max-age=31536000;",
       "X-Content-Type-Options": "nosniff",
@@ -72,12 +73,12 @@
       "mixed-content": "noupgrade",
       "TeamCity-Node-Id": "MAIN_SERVER",
       "Set-Cookie": [
-        "TCSESSIONID=DCC3E93D241D56E5E9D81F1AA5B838FC; Path=/; HttpOnly",
-        "RecentLogin=; Max-Age=10; Expires=Tue, 31 Dec 2024 06:26:11 GMT; Path=/",
+        "TCSESSIONID=78CD505AF076F1E70F887F08C6D413B3; Path=/; HttpOnly",
+        "RecentLogin=; Max-Age=10; Expires=Wed, 01 Jan 2025 22:58:25 GMT; Path=/",
         "RememberMe=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/; HttpOnly"
       ],
       "Cache-Control": "no-store",
-      "Date": "Tue, 31 Dec 2024 06:26:01 GMT"
+      "Date": "Wed, 01 Jan 2025 22:58:15 GMT"
     }
   }
 }
