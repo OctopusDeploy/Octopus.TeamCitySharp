@@ -1,6 +1,6 @@
 {
-  "Guid": "96513e30-40f1-4390-8628-e0092ae06214",
-  "UpdatedAt": "2025-01-01T06:24:08.538153Z",
+  "Guid": "9e930470-9656-4b61-a480-9b67dd1c5606",
+  "UpdatedAt": "2025-01-01T21:01:44.229081Z",
   "Title": "Proxy Mapping for GET /httpAuth/app/rest/projects/id:TestingTeamCitySharp",
   "Description": "Proxy Mapping for GET /httpAuth/app/rest/projects/id:TestingTeamCitySharp",
   "Priority": -2000000,
@@ -25,17 +25,6 @@
           {
             "Name": "WildcardMatcher",
             "Pattern": "application/json",
-            "IgnoreCase": true
-          }
-        ],
-        "IgnoreCase": true
-      },
-      {
-        "Name": "Authorization",
-        "Matchers": [
-          {
-            "Name": "WildcardMatcher",
-            "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpuMzdBKkNEZTRSaE0zWWpCLld1Mw==",
             "IgnoreCase": true
           }
         ],
@@ -146,12 +135,12 @@
       "mixed-content": "noupgrade",
       "TeamCity-Node-Id": "MAIN_SERVER",
       "Set-Cookie": [
-        "TCSESSIONID=D5DA42D785B02FCB415363C62A551145; Path=/; HttpOnly",
-        "RecentLogin=; Max-Age=10; Expires=Wed, 01 Jan 2025 06:24:18 GMT; Path=/",
+        "TCSESSIONID=AB390E73A4C73CA1C1416DBC637256BF; Path=/; HttpOnly",
+        "RecentLogin=; Max-Age=10; Expires=Wed, 01 Jan 2025 21:01:54 GMT; Path=/",
         "RememberMe=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/; HttpOnly"
       ],
       "Cache-Control": "no-store",
-      "Date": "Wed, 01 Jan 2025 06:24:07 GMT"
+      "Date": "Wed, 01 Jan 2025 21:01:44 GMT"
     }
   }
 }
