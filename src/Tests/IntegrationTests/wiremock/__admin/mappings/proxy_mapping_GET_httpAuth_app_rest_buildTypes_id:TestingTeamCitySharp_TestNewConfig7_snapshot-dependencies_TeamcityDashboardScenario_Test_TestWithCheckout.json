@@ -1,0 +1,104 @@
+{
+  "Guid": "eceba798-79e5-4555-bb22-73645d64ea6a",
+  "UpdatedAt": "2025-01-01T05:23:28.650682Z",
+  "Title": "Proxy Mapping for GET /httpAuth/app/rest/buildTypes/id:TestingTeamCitySharp_TestNewConfig7/snapshot-dependencies/TeamcityDashboardScenario_Test_TestWithCheckout",
+  "Description": "Proxy Mapping for GET /httpAuth/app/rest/buildTypes/id:TestingTeamCitySharp_TestNewConfig7/snapshot-dependencies/TeamcityDashboardScenario_Test_TestWithCheckout",
+  "Priority": -2000000,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/httpAuth/app/rest/buildTypes/id:TestingTeamCitySharp_TestNewConfig7/snapshot-dependencies/TeamcityDashboardScenario_Test_TestWithCheckout",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "HttpVersion": "1.1",
+    "Headers": [
+      {
+        "Name": "Accept",
+        "Matchers": [
+          {
+            "Name": "WildcardMatcher",
+            "Pattern": "application/json",
+            "IgnoreCase": true
+          }
+        ],
+        "IgnoreCase": true
+      },
+      {
+        "Name": "Authorization",
+        "Matchers": [
+          {
+            "Name": "WildcardMatcher",
+            "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpuMzdBKkNEZTRSaE0zWWpCLld1Mw==",
+            "IgnoreCase": true
+          }
+        ],
+        "IgnoreCase": true
+      }
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "id": "TeamcityDashboardScenario_Test_TestWithCheckout",
+      "type": "snapshot_dependency",
+      "properties": {
+        "property": [
+          {
+            "name": "run-build-if-dependency-failed",
+            "value": "RUN_ADD_PROBLEM"
+          },
+          {
+            "name": "run-build-if-dependency-failed-to-start",
+            "value": "MAKE_FAILED_TO_START"
+          },
+          {
+            "name": "run-build-on-the-same-agent",
+            "value": "false"
+          },
+          {
+            "name": "sync-revisions",
+            "value": "true"
+          },
+          {
+            "name": "take-started-build-with-same-revisions",
+            "value": "true"
+          },
+          {
+            "name": "take-successful-builds-only",
+            "value": "true"
+          }
+        ],
+        "count": 6
+      },
+      "source-buildType": {
+        "id": "TeamcityDashboardScenario_Test_TestWithCheckout",
+        "internalId": "__unresolved__TeamcityDashboardScenario_Test_TestWithCheckout"
+      }
+    },
+    "Headers": {
+      "Content-Type": "application/json",
+      "Content-Length": "641",
+      "X-Frame-Options": "sameorigin",
+      "Strict-Transport-Security": "max-age=31536000;",
+      "X-Content-Type-Options": "nosniff",
+      "X-XSS-Protection": "1; mode=block",
+      "Referrer-Policy": "origin-when-cross-origin",
+      "mixed-content": "noupgrade",
+      "TeamCity-Node-Id": "MAIN_SERVER",
+      "Set-Cookie": [
+        "TCSESSIONID=70BEF4956E79E01D70C4DE12B40F1C12; Path=/; HttpOnly",
+        "RecentLogin=; Max-Age=10; Expires=Wed, 01 Jan 2025 05:23:38 GMT; Path=/",
+        "RememberMe=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/; HttpOnly"
+      ],
+      "Cache-Control": "no-store",
+      "Date": "Wed, 01 Jan 2025 05:23:28 GMT"
+    }
+  }
+}

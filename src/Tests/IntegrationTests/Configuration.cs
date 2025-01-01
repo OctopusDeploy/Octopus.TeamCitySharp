@@ -1,10 +1,23 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using WireMock.Admin.Mappings;
+using WireMock.Handlers;
+using WireMock.Logging;
+using WireMock.Matchers;
+using WireMock.Server;
+using WireMock.Settings;
+using WireMock.Types;
 
 namespace TeamCitySharp.IntegrationTests
 {
     public static class Configuration
     {
+        // private static readonly WireMockServer WiremockServer;
         private static readonly IConfigurationRoot configuration;
 
         static Configuration()
@@ -14,9 +27,46 @@ namespace TeamCitySharp.IntegrationTests
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile("appsettings.Development.json", optional: true)
                 .AddEnvironmentVariables()
-                .Build();        
+                .Build();
+
+            // var wiremockFolder = Path.GetFullPath(Path.Combine(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName!, "..", "..", "..", "wiremock"));
+            // var settings = new WireMockServerSettings
+            // {
+            //     Urls = ["http://localhost:8112"],
+            //     ProxyAndRecordSettings = new ProxyAndRecordSettings
+            //     {
+            //         Url = "http://localhost:8111",
+            //         SaveMapping = true,
+            //         SaveMappingToFile = true,
+            //         ExcludedHeaders = ["Host", "traceparent", "Authorization"],
+            //         PrefixForSavedMappingFile = "proxy_mapping",
+            //     },
+            //     QueryParameterMultipleValueSupport = QueryParameterMultipleValueSupport.Ampersand,
+            //     // CustomMatcherMappings = new Dictionary<string, Func<MatcherModel, IMatcher>>
+            //     // {
+            //     //     {
+            //     //         nameof(CustomPathParamMatcher), matcherModel =>
+            //     //         {
+            //     //             var matcherParams = JsonConvert.DeserializeObject<CustomPathParamMatcherModel>((string) matcherModel.Pattern!)!;
+            //     //             return new CustomPathParamMatcher(
+            //     //                 matcherModel.RejectOnMatch == true ? MatchBehaviour.RejectOnMatch : MatchBehaviour.AcceptOnMatch,
+            //     //                 matcherParams.Path,
+            //     //                 matcherParams.PathParams
+            //     //             );
+            //     //         }
+            //     //     }
+            //     // },
+            //     ReadStaticMappings = true,
+            //     StartAdminInterface = true,
+            //     FileSystemHandler = new LocalFileSystemHandler(wiremockFolder),
+            //     Logger = new WireMockConsoleLogger(),
+            // };
+            // WiremockServer = WireMockServer.Start(settings);
         }
-        
+
         public static string GetAppSetting(string key) => configuration[key];
+
+        // public static HttpClient GetWireMockClient() => WiremockServer.CreateClient();
+        public static HttpClient GetWireMockClient() => new HttpClient();
     }
 }

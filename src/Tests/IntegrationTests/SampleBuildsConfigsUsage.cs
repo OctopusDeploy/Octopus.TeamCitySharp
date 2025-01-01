@@ -47,7 +47,7 @@ namespace TeamCitySharp.IntegrationTests
     [SetUp]
     public void SetUp()
     {
-      m_client = new TeamCityClient(m_server, m_useSsl);
+      m_client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       m_client.Connect(m_username, m_password);
     }
 
@@ -60,7 +60,7 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_returns_all_build_types_with_access_token()
     {
-      var client = new TeamCityClient(m_server, m_useSsl);
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       client.ConnectWithAccessToken(m_token);
       var buildConfigs = client.BuildConfigs.All();
       Assert.That(buildConfigs.Any(), "No build types were found in this server");
@@ -110,7 +110,7 @@ namespace TeamCitySharp.IntegrationTests
       var buildLocator = BuildTypeLocator.WithId(buildConfigId);
       try
       {
-        var client = new TeamCityClient(m_server, m_useSsl);
+        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
         client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
         client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, true);
       }
@@ -184,7 +184,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         bt = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId,
-          "testNewConfig");
+          "testNewConfig1");
 
 
         var xml = "<step type=\"simpleRunner\">" +
@@ -218,7 +218,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         bt = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId,
-          "testNewConfig");
+          "testNewConfig2");
 
 
         const string xml = @"<steps>
@@ -269,7 +269,7 @@ namespace TeamCitySharp.IntegrationTests
       try
       {
         bt = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId,
-          "testNewConfig");
+          "testNewConfig3");
 
 
         const string xml = @"<steps>
@@ -319,7 +319,7 @@ namespace TeamCitySharp.IntegrationTests
     {
       try
       {
-        var client = new TeamCityClient(m_server, m_useSsl);
+        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
         client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
         client.BuildConfigs.GetArtifactDependencies(m_goodBuildConfigId);
       }
@@ -335,7 +335,7 @@ namespace TeamCitySharp.IntegrationTests
     {
       try
       {
-        var client = new TeamCityClient(m_server, m_useSsl);
+        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
         client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
         client.BuildConfigs.GetSnapshotDependencies(m_goodBuildConfigId);
       }
@@ -350,9 +350,9 @@ namespace TeamCitySharp.IntegrationTests
     {
       try
       {
-        var client = new TeamCityClient(m_server, m_useSsl);
+        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
         client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
-        client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig");
+        client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig4");
       }
       catch (HttpException e)
       {
@@ -365,7 +365,11 @@ namespace TeamCitySharp.IntegrationTests
     {
       const string depend = "TeamcityDashboardScenario_Test_TestWithCheckout";
       const string newDepend = "TeamcityDashboardScenario_Test_TestWithCheckoutWithDependencies";
-      var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig");
+      
+      var projectName = "Project to test build config modification";
+      var project = m_client.Projects.Create(projectName, m_goodProjectId);
+      
+      var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(project.Id, "testNewConfig5");
       var buildLocator = BuildTypeLocator.WithId(buildConfig.Id);
       var bt = new BuildTrigger
       {
@@ -397,6 +401,7 @@ namespace TeamCitySharp.IntegrationTests
 
       //Cleanup 
       m_client.BuildConfigs.DeleteConfiguration(buildLocatorFinal);
+      m_client.Projects.Delete(project.Name);
     }
 
     [Test]
@@ -407,7 +412,7 @@ namespace TeamCitySharp.IntegrationTests
       var buildLocatorFinal = new BuildTypeLocator();
       try
       {
-        var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig");
+        var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig6");
         buildLocatorFinal = BuildTypeLocator.WithId(buildConfig.Id);
         var artifactDependencies = new ArtifactDependencies
         {
@@ -458,7 +463,7 @@ namespace TeamCitySharp.IntegrationTests
       var buildLocatorFinal = new BuildTypeLocator();
       try
       {
-        var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig");
+        var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig7");
         buildLocatorFinal = BuildTypeLocator.WithId(buildConfig.Id);
         var snapshotDependencies = new SnapshotDependencies
         {
@@ -555,30 +560,7 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_returns_build_config_templates()
-    {
-      string buildConfigId = m_goodBuildConfigId;
-      var buildLocator = BuildTypeLocator.WithId(buildConfigId);
-      var templates = m_client.BuildConfigs.GetTemplates(buildLocator);
-      Assert.That(templates, Is.Not.Null, "No templates found, invalid templates call.");
-    }
-
-    [Test]
-    public void it_attaches_templates_to_build_config()
-    {
-      string buildConfigId = m_goodBuildConfigId;
-      var buildLocator = BuildTypeLocator.WithId(buildConfigId);
-      var buildConfig = new Template { Id = m_goodTemplateId };
-      var buildConfigList = new List<Template>() { buildConfig };
-      var templates = new Templates { BuildType = buildConfigList };
-      m_client.BuildConfigs.AttachTemplates(buildLocator, templates);
-
-      var templatesReceived = m_client.BuildConfigs.GetTemplates(buildLocator);
-      Assert.That(templatesReceived.BuildType.Any(), "Templates not attached");
-    }
-
-    [Test]
-    public void it_detaches_templates_from_build_config()
+    public void it_attaches_and_detaches_templates_from_build_config()
     {
       string buildConfigId = m_goodBuildConfigId;
       var buildLocator = BuildTypeLocator.WithId(buildConfigId);
@@ -588,27 +570,14 @@ namespace TeamCitySharp.IntegrationTests
       m_client.BuildConfigs.AttachTemplates(buildLocator, templates);
       var templatesReceived = m_client.BuildConfigs.GetTemplates(buildLocator);
       Assert.That(templatesReceived.BuildType.Any(), "Templates not attached");
+      
+      var templatesField = m_client.BuildConfigs.ByConfigurationId(buildConfigId).Templates;
+      Assert.That(templatesField, Is.Not.Null, "Templates property not retrieved correctly");
+      
       m_client.BuildConfigs.DetachTemplates(buildLocator);
 
       templatesReceived = m_client.BuildConfigs.GetTemplates(buildLocator);
       Assert.That(!templatesReceived.BuildType.Any(), "Templates not detached");
-
-    }
-
-    [Test]
-    public void it_returns_build_config_templates_property()
-    {
-      string buildConfigId = m_goodBuildConfigId;
-      var buildLocator = BuildTypeLocator.WithId(buildConfigId);
-      var buildConfig = new Template { Id = m_goodTemplateId };
-      var buildConfigList = new List<Template>() { buildConfig };
-      var templates = new Templates { BuildType = buildConfigList };
-      m_client.BuildConfigs.AttachTemplates(buildLocator, templates);
-      var templatesReceived = m_client.BuildConfigs.GetTemplates(buildLocator);
-      Assert.That(templatesReceived.BuildType.Any(), "Templates not attached");
-
-      var templatesField = m_client.BuildConfigs.ByConfigurationId(buildConfigId).Templates;
-      Assert.That(templatesField, Is.Not.Null, "Templates property not retrieved correctly");
     }
 
     [Test]
@@ -633,7 +602,7 @@ namespace TeamCitySharp.IntegrationTests
       var buildProject = new Project() { Id = m_goodProjectId };
       var parameters = new Parameters
         { Property = new List<Property>() { new Property() { Name = "category", Value = "test"} } };
-      var buildConfig = new BuildConfig() { Id = currentBuildId, Name = "testNewConfig", Project = buildProject, Parameters = parameters };
+      var buildConfig = new BuildConfig() { Id = currentBuildId, Name = "testNewConfig8", Project = buildProject, Parameters = parameters };
 
       try
       {

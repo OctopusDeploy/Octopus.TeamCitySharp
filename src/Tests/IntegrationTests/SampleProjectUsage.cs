@@ -36,7 +36,7 @@ namespace TeamCitySharp.IntegrationTests
     [SetUp]
     public void SetUp()
     {
-      m_client = new TeamCityClient(m_server, m_useSsl);
+      m_client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       m_client.Connect(m_username, m_password);
     }
 
@@ -97,9 +97,9 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_returns_project_details_when_creating_project()
     {
-      var client = new TeamCityClient(m_server, m_useSsl);
+      var client = new TeamCityClient(m_server, httpClientFactory: Configuration.GetWireMockClient);
       client.Connect(m_username, m_password);
-      var projectName = Guid.NewGuid().ToString("N");
+      var projectName = "SampleProjectName";
       try
       {
         var project = client.Projects.Create(projectName);

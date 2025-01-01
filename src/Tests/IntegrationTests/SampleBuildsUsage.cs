@@ -33,7 +33,7 @@ namespace TeamCitySharp.IntegrationTests
     [SetUp]
     public void SetUp()
     {
-      m_client = new TeamCityClient(m_server, m_useSsl);
+      m_client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       m_client.Connect(m_username, m_password);
     }
 
@@ -169,7 +169,7 @@ namespace TeamCitySharp.IntegrationTests
     public void it_does_not_populate_the_status_text_field_of_the_build_object()
     {
       string buildConfigId = m_goodBuildConfigId;
-      var client = new TeamCityClient(m_server, m_useSsl);
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       client.Connect(m_username, m_password);
 
       var build =
@@ -196,7 +196,7 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_returns_correct_next_builds()
     {
-      var client = new TeamCityClient(m_server, m_useSsl);
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       var buildId = Configuration.GetAppSetting("IdOfBuildWithSubsequentBuilds");
       client.Connect(m_username, m_password);
 
@@ -214,16 +214,16 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_returns_correct_next_builds_with_filter()
     {
-      var client = new TeamCityClient(m_server, m_useSsl);
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       var buildId = Configuration.GetAppSetting("IdOfBuildWithSubsequentBuilds");
       client.Connect(m_username, m_password);
 
       BuildField buildField = BuildField.WithFields(id: true, number: true, finishDate: true);
       BuildsField buildsField = BuildsField.WithFields(buildField);
-      var builds = client.Builds.GetFields(buildsField.ToString()).NextBuilds(buildId, 10);
+      var builds = client.Builds.GetFields(buildsField.ToString()).NextBuilds(buildId, 3);
 
-      Assert.That(builds.Count == 10);
       Assert.That(builds, Is.Not.Null);
+      Assert.That(builds.Count, Is.EqualTo(3));
       int i = 0;
       foreach (var build in builds)
       {
@@ -283,7 +283,7 @@ namespace TeamCitySharp.IntegrationTests
       Assert.That(build.Artifacts, Is.Not.Null, "No Artifacts 2");
       Assert.That(build.Artifacts.Href, Is.Not.Null, "No Artifacts href 2");
       Assert.That(build.RelatedIssues, Is.Not.Null, "No RelatedIssues 2");
-      Assert.That(build.RelatedIssues.Href, Is.Not.Null, "No RelatedIssues href 2");
+      Assert.That(build.RelatedIssues.Href, Is.Not.Null, "No RelatedIssues href 2");  
       Assert.That(build.Statistics, Is.Not.Null, "No Statistics 2");
       Assert.That(build.Statistics.Href, Is.Null, "No Statistics href 2");
 

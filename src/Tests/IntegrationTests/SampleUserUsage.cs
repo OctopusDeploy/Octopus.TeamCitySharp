@@ -31,7 +31,7 @@ namespace TeamCitySharp.IntegrationTests
         [SetUp]
         public void SetUp()
         {
-            m_client = new TeamCityClient(m_server, m_useSsl);
+            m_client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
             m_client.Connect(m_username, m_password);
         }
 
@@ -128,7 +128,7 @@ namespace TeamCitySharp.IntegrationTests
         [Test]
         public void it_should_throw_exception_when_forbidden_status_code_returned()
         {
-            var client = new TeamCityClient(m_server, m_useSsl);
+            var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
             client.ConnectAsGuest();
 
             Assert.Throws<HttpException>(() => client.Users.All());

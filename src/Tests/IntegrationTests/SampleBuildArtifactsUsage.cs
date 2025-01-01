@@ -37,7 +37,7 @@ namespace TeamCitySharp.IntegrationTests
     [SetUp]
     public void SetUp()
     {
-      m_client = new TeamCityClient(m_server, m_useSsl);
+      m_client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       m_client.Connect(m_username, m_password);
     }
 
@@ -56,7 +56,7 @@ namespace TeamCitySharp.IntegrationTests
     {
       var buildConfigId = m_goodBuildConfigId;
       var token = m_token;
-      var client = new TeamCityClient(m_server, m_useSsl);
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
       client.ConnectWithAccessToken(token);
       
       var build = client.Builds.LastSuccessfulBuildByBuildConfigId(buildConfigId);
