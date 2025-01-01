@@ -1,10 +1,7 @@
 ﻿// see source code for all the possible properties
 
-using Newtonsoft.Json;
-using WireMock.Admin.Mappings;
 using WireMock.Handlers;
 using WireMock.Logging;
-using WireMock.Matchers;
 using WireMock.Net.StandAlone;
 using WireMock.Settings;
 using WireMock.Types;
@@ -29,20 +26,6 @@ var settings = new WireMockServerSettings
     FileSystemHandler = new LocalFileSystemHandler(wiremockFolder),
     Logger = new WireMockConsoleLogger(),
 };
-
-// var patternModel = new CustomPathParamMatcherModel("/customer/{customerId}/document/{documentId}",
-//     new Dictionary<string, string>(2)
-//     {
-//         { "customerId", @"^[0-9]+$" },
-//         { "documentId", @"^[0-9a-zA-Z\-\_]+\.[a-zA-Z]+$" }
-//     });
-// var model = new MatcherModel
-// {
-//     Name = nameof(CustomPathParamMatcher),
-//     Pattern = JsonConvert.SerializeObject(patternModel)
-// };
-
-
 
 StandAloneApp.Start(settings);
 

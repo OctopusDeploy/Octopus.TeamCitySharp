@@ -68,5 +68,6 @@ namespace TeamCitySharp.IntegrationTests
 
         // public static HttpClient GetWireMockClient() => WiremockServer.CreateClient();
         public static HttpClient GetWireMockClient() => new HttpClient();
+        // public static HttpClient GetWireMockClient() => new HttpClient();
     }
 }
