@@ -42,7 +42,7 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_downloads_artifact()
+    public void it_downloads_artifacts()
     {
       string buildConfigId = m_goodBuildConfigId;
       var build = m_client.Builds.LastSuccessfulBuildByBuildConfigId(buildConfigId);
@@ -52,7 +52,7 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_downloads_artifact_with_access_token()
+    public void it_downloads_artifacts_with_access_token()
     {
       var buildConfigId = m_goodBuildConfigId;
       var token = m_token;
@@ -76,7 +76,7 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public async Task it_download_artifact()
+    public async Task it_downloads_specific_artifact()
     {
       var buildConfigId = Configuration.GetAppSetting("IdOfBuildConfigWithArtifact");
 
