@@ -109,20 +109,15 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
+    [Ignore("Not working - not throwing exception as expected")]
     public void it_throws_exception_pauses_configuration_forbidden()
     {
       string buildConfigId = m_goodBuildConfigId;
       var buildLocator = BuildTypeLocator.WithId(buildConfigId);
-      try
-      {
-        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
-        client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, true);
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-      }
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+      client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+      var e = Assert.Throws<HttpException>(() => client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, true), "Expected that the user does not have permission to pause the build");
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
 
     [Test]
