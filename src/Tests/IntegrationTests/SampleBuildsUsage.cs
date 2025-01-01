@@ -160,7 +160,7 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_returns_all_successful_builds_since_date()
     {
-      var builds = m_client.Builds.AllBuildsOfStatusSinceDate(DateTime.Now.AddDays(-2), BuildStatus.FAILURE);
+      var builds = m_client.Builds.AllBuildsOfStatusSinceDate(new DateTime(2024, 12, 30, 17, 25, 39), BuildStatus.FAILURE);
 
       Assert.That(builds, Is.Not.Null);
     }
@@ -240,7 +240,6 @@ namespace TeamCitySharp.IntegrationTests
       m_client.Builds.PinBuildByBuildNumber(Configuration.GetAppSetting("IdOfBuildConfigWithTests"), Configuration.GetAppSetting("BuildNumberOfBuildToPin"), "Automated Comment");
       m_client.Builds.UnPinBuildByBuildNumber(Configuration.GetAppSetting("IdOfBuildConfigWithTests"), Configuration.GetAppSetting("BuildNumberOfBuildToPin"));
     }
-
 
     [Test]
     public void it_returns_first_build_artifacts_relatedIssues_Statistics_no_field()
