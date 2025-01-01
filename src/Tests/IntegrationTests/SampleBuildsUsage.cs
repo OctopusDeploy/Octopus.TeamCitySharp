@@ -183,14 +183,8 @@ namespace TeamCitySharp.IntegrationTests
     public void unknown_build_id_raises_exception()
     {
       const string buildId = "5726";
-      try
-      {
-        m_client.Builds.ById(buildId);
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.NotFound), "Expects a 404 exception.");
-      }
+      var e = Assert.Throws<HttpException>(() => m_client.Builds.ById(buildId));
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.NotFound), "Expects a 404 exception.");
     }
 
     [Test]

@@ -117,14 +117,8 @@ namespace TeamCitySharp.IntegrationTests
     public void it_returns_projectFeatures_when_passing_a_project_id()
     {
       string projectId = "_Root";
-      try
-      {
-        ProjectFeatures projectFeatures = m_client.Projects.GetProjectFeatures(projectId);
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-      }
+      var e = Assert.Throws<HttpException>(() => m_client.Projects.GetProjectFeatures(projectId));
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
 
     [Test]
@@ -182,16 +176,10 @@ namespace TeamCitySharp.IntegrationTests
       };
 
 
-      try
-      {
-        ProjectFeature projectFeature = m_client.Projects.CreateProjectFeature(projectId, pf);
-        m_client.Projects.DeleteProjectFeature(projectId, projectFeature.Id);
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode == HttpStatusCode.Forbidden,
-          "Creating a project feature should fail with unauthorized http exception.");
-      }
+      ProjectFeature projectFeature = m_client.Projects.CreateProjectFeature(projectId, pf);
+      var e = Assert.Throws<HttpException>(() => m_client.Projects.DeleteProjectFeature(projectId, projectFeature.Id));
+      Assert.That(e.ResponseStatusCode == HttpStatusCode.Forbidden,
+        "Creating a project feature should fail with unauthorized http exception.");
     }
 
     [Test]
@@ -224,18 +212,11 @@ namespace TeamCitySharp.IntegrationTests
       PropertyField propertyField = PropertyField.WithFields(name: true, value: true, inherited: true);
       PropertiesField propertiesField = PropertiesField.WithFields(propertyField: propertyField);
       ProjectFeatureField projectFeatureField =
-        ProjectFeatureField.WithFields(type: true, properties: propertiesField);
+      ProjectFeatureField.WithFields(type: true, properties: propertiesField);
 
-      try
-      {
-        m_client.Projects.GetFields(projectFeatureField.ToString())
-          .GetProjectFeatureByProjectFeature(projectId, featureId);
-      }
-      catch (HttpException e)
-      {
-        Console.WriteLine(e);
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-      }
+      var e = Assert.Throws<HttpException>(() => m_client.Projects.GetFields(projectFeatureField.ToString())
+        .GetProjectFeatureByProjectFeature(projectId, featureId));
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
 
     [Test]

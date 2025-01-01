@@ -52,16 +52,9 @@ namespace TeamCitySharp.IntegrationTests
         [Test]
         public void user_operation_throws_exception_for_unauthorized_user()
         {
-            try
-            {
-                m_client.Users.All();
-            }
-            catch (HttpException e)
-            {
-                Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-            }
+            var e = Assert.Throws<HttpException>(() => m_client.Users.All());
+            Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
         }
-
 
         [Test]
         public void it_returns_all_user_groups()

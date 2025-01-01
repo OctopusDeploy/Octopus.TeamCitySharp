@@ -69,14 +69,8 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_raises_exception_all_server_plugins_unauthorized_user()
     {
-      try
-      {
-        m_client.ServerInformation.AllPlugins();
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-      }
+      var e = Assert.Throws<HttpException>(() => m_client.ServerInformation.AllPlugins());
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
 
     [Test]

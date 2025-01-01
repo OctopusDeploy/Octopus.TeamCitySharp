@@ -306,47 +306,28 @@ namespace TeamCitySharp.IntegrationTests
     [Test]
     public void it_throws_exception_artifact_dependencies_by_build_config_id_forbidden()
     {
-      try
-      {
-        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
-        client.BuildConfigs.GetArtifactDependencies(m_goodBuildConfigId);
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-      }
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+      client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+      var e = Assert.Throws<HttpException>(() => client.BuildConfigs.GetArtifactDependencies(m_goodBuildConfigId));
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
-
 
     [Test]
     public void it_throws_exception_snapshot_dependencies_by_build_config_id_forbidden()
     {
-      try
-      {
-        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
-        client.BuildConfigs.GetSnapshotDependencies(m_goodBuildConfigId);
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-      }
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+      client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+      var e = Assert.Throws<HttpException>(() =>   client.BuildConfigs.GetSnapshotDependencies(m_goodBuildConfigId));
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
 
     [Test]
     public void it_throws_exception_create_build_config_forbidden()
     {
-      try
-      {
-        var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
-        client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
-        client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig4");
-      }
-      catch (HttpException e)
-      {
-        Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-      }
+      var client = new TeamCityClient(m_server, m_useSsl, Configuration.GetWireMockClient);
+      client.Connect(Configuration.GetAppSetting("NonAdminUser"), m_password);
+      var e = Assert.Throws<HttpException>(() => client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig4"));
+      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
     }
 
     [Test]
@@ -431,11 +412,6 @@ namespace TeamCitySharp.IntegrationTests
         m_client.BuildConfigs.ModifArtifactDependencies(buildConfig.Id, depend, newDepend);
 
       }
-      catch (Exception e)
-      {
-        Console.WriteLine(e);
-        throw;
-      }
       finally
       {
         //Cleanup 
@@ -482,11 +458,6 @@ namespace TeamCitySharp.IntegrationTests
 
         m_client.BuildConfigs.ModifSnapshotDependencies(buildConfig.Id, depend, newDepend);
 
-      }
-      catch (Exception e)
-      {
-        Console.WriteLine(e);
-        throw;
       }
       finally
       {
