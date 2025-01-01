@@ -622,9 +622,9 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_returns_branches_history_with_field_Default_but_active_not_fetched()
+    public void it_returns_branches_history_with_field_default_but_active_not_fetched()
     {
-      BranchField branchField = BranchField.WithFields(name:true,defaultValue:true);
+      BranchField branchField = BranchField.WithFields(name:true, defaultValue:true);
       BranchesField branchesField = BranchesField.WithFields(branch: branchField);
       string buildConfigId = m_goodBuildConfigId;
       var tempBuild = m_client.BuildConfigs.GetFields(branchesField.ToString()).GetBranchesByBuildConfigurationId(buildConfigId, BranchLocator.WithDimensions(BranchPolicy.ALL_BRANCHES));
@@ -633,17 +633,15 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_returns_branches_history_with_field_Default_active_fetched()
+    public void it_returns_branches_history_with_field_default_active_fetched()
     {
-      BranchField branchField = BranchField.WithFields(name: true, defaultValue: true,active:true);
+      BranchField branchField = BranchField.WithFields(name: true, defaultValue: true, active:true);
       BranchesField branchesField = BranchesField.WithFields(branch: branchField);
       string buildConfigId = m_goodBuildConfigId;
       var tempBuild = m_client.BuildConfigs.GetFields(branchesField.ToString()).GetBranchesByBuildConfigurationId(buildConfigId, BranchLocator.WithDimensions(BranchPolicy.ALL_BRANCHES));
       var checkIfFieldWork = tempBuild.Branch.Single(x => x.Default);
       Assert.That(checkIfFieldWork.Active, Is.True);
-
     }
-
 
     #region private
     private string GetXml(object data)
