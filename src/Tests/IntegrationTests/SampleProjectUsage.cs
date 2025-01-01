@@ -117,8 +117,8 @@ namespace TeamCitySharp.IntegrationTests
     public void it_returns_projectFeatures_when_passing_a_project_id()
     {
       string projectId = "_Root";
-      var e = Assert.Throws<HttpException>(() => m_client.Projects.GetProjectFeatures(projectId));
-      Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
+      var projectFeature = m_client.Projects.GetProjectFeatures(projectId);
+      Assert.That(projectFeature, Is.Not.Null, "No project feature found for that specific project");
     }
 
     [Test]
