@@ -234,13 +234,10 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_pin_by_config()
+    public void it_pins_and_unpins_by_config()
     {
+      //todo: consider adding GETs to verify the pin
       m_client.Builds.PinBuildByBuildNumber(Configuration.GetAppSetting("IdOfBuildConfigWithTests"), Configuration.GetAppSetting("BuildNumberOfBuildToPin"), "Automated Comment");
-    }
-
-    [Test]
-    public void it_unpin_by_config()
     {
       m_client.Builds.UnPinBuildByBuildNumber(Configuration.GetAppSetting("IdOfBuildConfigWithTests"), Configuration.GetAppSetting("BuildNumberOfBuildToPin"));
     }
