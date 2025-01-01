@@ -94,13 +94,18 @@ namespace TeamCitySharp.IntegrationTests
     }
 
     [Test]
-    public void it_pauses_configuration()
+    public void it_pauses_and_unpauses_configuration()
     {
       string buildConfigId = m_goodBuildConfigId;
       var buildLocator = BuildTypeLocator.WithId(buildConfigId);
+
       m_client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, true);
       var status = m_client.BuildConfigs.GetConfigurationPauseStatus(buildLocator);
       Assert.That(status, Is.True, "Build not paused");
+
+      m_client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, false);
+      status = m_client.BuildConfigs.GetConfigurationPauseStatus(buildLocator);
+      Assert.That(status, Is.False, "Build not unpaused");
     }
 
     [Test]
@@ -118,16 +123,6 @@ namespace TeamCitySharp.IntegrationTests
       {
         Assert.That(e.ResponseStatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
       }
-    }
-
-    [Test]
-    public void it_unpauses_configuration()
-    {
-      string buildConfigId = m_goodBuildConfigId;
-      var buildLocator = BuildTypeLocator.WithId(buildConfigId);
-      m_client.BuildConfigs.SetConfigurationPauseStatus(buildLocator, false);
-      var status = m_client.BuildConfigs.GetConfigurationPauseStatus(buildLocator);
-      Assert.That(status, Is.False, "Build not unpaused");
     }
 
     [Test]
@@ -166,8 +161,7 @@ namespace TeamCitySharp.IntegrationTests
       Assert.That(artifactDependencies, Is.Not.Null,
         "Cannot find a Artifact dependencies for that buildConfigId");
     }
-
-
+    
     [Test]
     public void it_returns_snapshot_dependencies_by_build_config_id()
     {
