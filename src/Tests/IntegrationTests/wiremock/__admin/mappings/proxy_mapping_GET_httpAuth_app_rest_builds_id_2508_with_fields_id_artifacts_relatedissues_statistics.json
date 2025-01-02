@@ -3,7 +3,7 @@
   "UpdatedAt": "2025-01-01T02:04:02.490937Z",
   "Title": "Proxy Mapping for GET /httpAuth/app/rest/builds/id:2508",
   "Description": "Proxy Mapping for GET /httpAuth/app/rest/builds/id:2508",
-  "Priority": -1999000,
+  "Priority": -2000000,
   "Request": {
     "Path": {
       "Matchers": [
