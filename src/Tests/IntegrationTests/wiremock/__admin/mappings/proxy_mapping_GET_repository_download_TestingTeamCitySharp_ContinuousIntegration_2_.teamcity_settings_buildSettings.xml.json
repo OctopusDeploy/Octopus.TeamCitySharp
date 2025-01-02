@@ -35,7 +35,7 @@
         "Matchers": [
           {
             "Name": "WildcardMatcher",
-            "Pattern": "Bearer eyJ0eXAiOiAiVENWMiJ9.ZUl1MzdXNmYyaUgzM3ZjTVp6Z1NrN0l3WEhJ.N2E3YTMwMDMtMTg3Ni00MDZiLWFkNDUtZDE0MDc1ZWM3N2Zi",
+            "Pattern": "Bearer secret-token-for-testing-teamcity-sharp-admin-user",
             "IgnoreCase": true
           }
         ],
