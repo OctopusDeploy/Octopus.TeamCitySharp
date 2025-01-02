@@ -1,15 +1,15 @@
 {
   "Guid": "c2d7415d-d7dc-4241-ac8c-deffc9b389d2",
   "UpdatedAt": "2025-01-01T05:23:28.010491Z",
-  "Title": "Proxy Mapping for GET /httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp",
-  "Description": "Proxy Mapping for GET /httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp",
+  "Title": "Proxy Mapping for GET /httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_VcsRootTeamCitySharp",
+  "Description": "Proxy Mapping for GET /httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_VcsRootTeamCitySharp",
   "Priority": -2000000,
   "Request": {
     "Path": {
       "Matchers": [
         {
           "Name": "WildcardMatcher",
-          "Pattern": "/httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp",
+          "Pattern": "/httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_VcsRootTeamCitySharp",
           "IgnoreCase": false
         }
       ]
@@ -46,10 +46,10 @@
   "Response": {
     "StatusCode": 200,
     "BodyAsJson": {
-      "id": "TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp",
+      "id": "TestingTeamCitySharp_VcsRootTeamCitySharp",
       "name": "https://github.com/OctopusDeploy/Octopus.TeamCitySharp",
       "vcsName": "jetbrains.git",
-      "href": "/httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp",
+      "href": "/httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_VcsRootTeamCitySharp",
       "project": {
         "id": "TestingTeamCitySharp",
         "name": "Testing TeamCitySharp",
@@ -103,7 +103,7 @@
         "count": 10
       },
       "vcsRootInstances": {
-        "href": "/httpAuth/app/rest/vcs-root-instances?locator=vcsRoot:(id:TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp)"
+        "href": "/httpAuth/app/rest/vcs-root-instances?locator=vcsRoot:(id:TestingTeamCitySharp_VcsRootTeamCitySharp)"
       }
     },
     "Headers": {

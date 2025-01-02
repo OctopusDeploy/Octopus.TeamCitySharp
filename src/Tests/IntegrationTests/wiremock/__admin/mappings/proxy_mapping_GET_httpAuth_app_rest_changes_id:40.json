@@ -95,7 +95,7 @@
       },
       "vcsRootInstance": {
         "id": "3",
-        "vcs-root-id": "TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp",
+        "vcs-root-id": "TestingTeamCitySharp_VcsRootTeamCitySharp",
         "name": "https://github.com/OctopusDeploy/Octopus.TeamCitySharp",
         "href": "/httpAuth/app/rest/vcs-root-instances/id:3"
       },

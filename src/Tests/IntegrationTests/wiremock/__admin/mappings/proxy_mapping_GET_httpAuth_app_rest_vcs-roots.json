@@ -55,9 +55,9 @@
           "href": "/httpAuth/app/rest/vcs-roots/id:ReleaseBotPlayground_HttpsGithubComOctopusDeployReleaseBotPlaygroundRefsHeadsMain"
         },
         {
-          "id": "TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp",
+          "id": "TestingTeamCitySharp_VcsRootTeamCitySharp",
           "name": "https://github.com/OctopusDeploy/Octopus.TeamCitySharp",
-          "href": "/httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_HttpsGithubComOctopusDeployOctopusTeamCitySharp"
+          "href": "/httpAuth/app/rest/vcs-roots/id:TestingTeamCitySharp_VcsRootTeamCitySharp"
         }
       ]
     },
