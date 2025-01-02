@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using WireMock.Admin.Mappings;
 using WireMock.Handlers;
 using WireMock.Logging;
-using WireMock.Matchers;
 using WireMock.Server;
 using WireMock.Settings;
 using WireMock.Types;
@@ -33,17 +28,17 @@ namespace TeamCitySharp.IntegrationTests
             var settings = new WireMockServerSettings
             {
                 Urls = ["http://localhost:8112"],
-                ProxyAndRecordSettings = new ProxyAndRecordSettings
-                {
-                    Url = "http://localhost:8111",
-                    
-                    //enable these two if you are adding or updating tests 
-                    //SaveMapping = true,
-                    //SaveMappingToFile = true,
-                    
-                    ExcludedHeaders = ["Host", "traceparent"],
-                    PrefixForSavedMappingFile = "proxy_mapping",
-                },
+                // ProxyAndRecordSettings = new ProxyAndRecordSettings
+                // {
+                //     Url = "http://localhost:8111",
+                //     
+                //     enable these two if you are adding or updating tests 
+                //     SaveMapping = true,
+                //     SaveMappingToFile = true,
+                //     
+                //     ExcludedHeaders = ["Host", "traceparent"],
+                //     PrefixForSavedMappingFile = "proxy_mapping",
+                // },
                 WatchStaticMappings = true,
                 AllowPartialMapping = false,
                 QueryParameterMultipleValueSupport = QueryParameterMultipleValueSupport.Ampersand,
