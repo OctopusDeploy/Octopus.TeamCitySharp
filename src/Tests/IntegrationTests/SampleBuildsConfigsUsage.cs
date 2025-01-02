@@ -428,45 +428,38 @@ namespace TeamCitySharp.IntegrationTests
       const string depend = "TeamcityDashboardScenario_Test_TestWithCheckout";
       const string newDepend = "TeamcityDashboardScenario_Test_TestWithCheckoutWithDependencies";
       var buildLocatorFinal = new BuildTypeLocator();
-      try
+
+      var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig7");
+      buildLocatorFinal = BuildTypeLocator.WithId(buildConfig.Id);
+      var snapshotDependencies = new SnapshotDependencies
       {
-        var buildConfig = m_client.BuildConfigs.CreateConfigurationByProjectId(m_goodProjectId, "testNewConfig7");
-        buildLocatorFinal = BuildTypeLocator.WithId(buildConfig.Id);
-        var snapshotDependencies = new SnapshotDependencies
+        SnapshotDependency = new List<SnapshotDependency>
         {
-          SnapshotDependency = new List<SnapshotDependency>
+          new SnapshotDependency
           {
-            new SnapshotDependency
+            Id = "TTTT_100",
+            Type = "snapshot_dependency",
+            SourceBuildType = new BuildConfig{Id = depend},
+            Properties = new Properties
             {
-              Id = "TTTT_100",
-              Type = "snapshot_dependency",
-              SourceBuildType = new BuildConfig{Id = depend},
-              Properties = new Properties
+              Property = new List<Property>
               {
-                Property = new List<Property>
-                {
-                  new Property {Name = "run-build-if-dependency-failed", Value = "RUN_ADD_PROBLEM"},
-                  new Property {Name = "run-build-if-dependency-failed-to-start", Value = "MAKE_FAILED_TO_START"},
-                  new Property {Name = "run-build-on-the-same-agent", Value = "false"},
-                  new Property {Name = "take-started-build-with-same-revisions", Value = "true"},
-                  new Property {Name = "take-successful-builds-only", Value = "true"}
-                }
+                new Property {Name = "run-build-if-dependency-failed", Value = "RUN_ADD_PROBLEM"},
+                new Property {Name = "run-build-if-dependency-failed-to-start", Value = "MAKE_FAILED_TO_START"},
+                new Property {Name = "run-build-on-the-same-agent", Value = "false"},
+                new Property {Name = "take-started-build-with-same-revisions", Value = "true"},
+                new Property {Name = "take-successful-builds-only", Value = "true"}
               }
             }
           }
-        };
+        }
+      };
 
-        m_client.BuildConfigs.SetSnapshotDependency(buildLocatorFinal, snapshotDependencies.SnapshotDependency[0]);
+      m_client.BuildConfigs.SetSnapshotDependency(buildLocatorFinal, snapshotDependencies.SnapshotDependency[0]);
 
-        m_client.BuildConfigs.ModifSnapshotDependencies(buildConfig.Id, depend, newDepend);
+      m_client.BuildConfigs.ModifSnapshotDependencies(buildConfig.Id, depend, newDepend);
 
-      }
-      finally
-      {
-        //Cleanup 
-        m_client.BuildConfigs.DeleteConfiguration(buildLocatorFinal);
-      }
-
+      m_client.BuildConfigs.DeleteConfiguration(buildLocatorFinal);
     }
 
     [Test]
