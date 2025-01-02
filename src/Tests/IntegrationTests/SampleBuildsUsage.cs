@@ -271,7 +271,7 @@ namespace TeamCitySharp.IntegrationTests
       Assert.That(build.Artifacts, Is.Not.Null, "No Artifacts 2");
       Assert.That(build.Artifacts.Href, Is.Not.Null, "No Artifacts href 2");
       Assert.That(build.RelatedIssues, Is.Not.Null, "No RelatedIssues 2");
-      Assert.That(build.RelatedIssues.Href, Is.Not.Null, "No RelatedIssues href 2");  
+      Assert.That(build.RelatedIssues.Href, Is.Not.Null, "No RelatedIssues href 2");
       Assert.That(build.Statistics, Is.Not.Null, "No Statistics 2");
       Assert.That(build.Statistics.Href, Is.Null, "No Statistics href 2");
 
