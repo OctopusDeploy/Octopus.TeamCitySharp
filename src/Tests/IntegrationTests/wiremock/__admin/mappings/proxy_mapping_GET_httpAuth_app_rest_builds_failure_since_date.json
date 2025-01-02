@@ -48,7 +48,7 @@
         "Matchers": [
           {
             "Name": "ExactMatcher",
-            "Pattern": "status:FAILURE,sinceDate:20241230T172539-1100",
+            "Pattern": "status:FAILURE,sinceDate:20241230T172539-0000",
             "IgnoreCase": false
           }
         ]
@@ -60,7 +60,7 @@
     "BodyAsJson": {
       "count": 0,
       "build": [],
-      "href": "/httpAuth/app/rest/builds?locator=status:FAILURE,sinceDate:20241230T172539-1100"
+      "href": "/httpAuth/app/rest/builds?locator=status:FAILURE,sinceDate:20241230T172539-0000"
     },
     "Headers": {
       "Content-Type": "application/json",
