@@ -38,7 +38,7 @@
           "Matchers": [
             {
               "Name": "WildcardMatcher",
-              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpuMzdBKkNEZTRSaE0zWWpCLld1Mw==",
+              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpzZWNyZXQtcGFzc3dvcmQ=",
               "IgnoreCase": true
             }
           ],
@@ -208,7 +208,7 @@
           "Matchers": [
             {
               "Name": "WildcardMatcher",
-              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpuMzdBKkNEZTRSaE0zWWpCLld1Mw==",
+              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpzZWNyZXQtcGFzc3dvcmQ=",
               "IgnoreCase": true
             }
           ],
@@ -397,7 +397,7 @@
           "Matchers": [
             {
               "Name": "WildcardMatcher",
-              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpuMzdBKkNEZTRSaE0zWWpCLld1Mw==",
+              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpzZWNyZXQtcGFzc3dvcmQ=",
               "IgnoreCase": true
             }
           ],
@@ -558,7 +558,7 @@
           "Matchers": [
             {
               "Name": "WildcardMatcher",
-              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpuMzdBKkNEZTRSaE0zWWpCLld1Mw==",
+              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpzZWNyZXQtcGFzc3dvcmQ=",
               "IgnoreCase": true
             }
           ],
@@ -627,7 +627,7 @@
           "Matchers": [
             {
               "Name": "WildcardMatcher",
-              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpuMzdBKkNEZTRSaE0zWWpCLld1Mw==",
+              "Pattern": "Basic dGVzdGluZy10Yy1zaGFycDpzZWNyZXQtcGFzc3dvcmQ=",
               "IgnoreCase": true
             }
           ],
