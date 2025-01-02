@@ -36,8 +36,11 @@ namespace TeamCitySharp.IntegrationTests
                 ProxyAndRecordSettings = new ProxyAndRecordSettings
                 {
                     Url = "http://localhost:8111",
-                    SaveMapping = true,
-                    SaveMappingToFile = true,
+                    
+                    //enable these two if you are adding or updating tests 
+                    //SaveMapping = true,
+                    //SaveMappingToFile = true,
+                    
                     ExcludedHeaders = ["Host", "traceparent"],
                     PrefixForSavedMappingFile = "proxy_mapping",
                 },
